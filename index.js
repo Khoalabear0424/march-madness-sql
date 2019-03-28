@@ -11,15 +11,22 @@ var connection = mysql.createConnection({
 
 app.get('/conference', function (req, res) {
     connection.connect();
-
-    connection.query('SELECT * FROM conference', function (error, results, fields) {
+    connection.query('SELECT * FROM conference LIMIT 10', function (error, results, fields) {
         if (error) throw error;
         console.log('The solution is: ', results);
         res.send(results)
     });
-
     connection.end();
+})
 
+app.get('/stats', function (req, res) {
+    connection.connect();
+    connection.query('SELECT * FROM mmstats_2017 LIMIT 10', function (error, results, fields) {
+        if (error) throw error;
+        console.log('The solution is: ', results);
+        res.send(results)
+    });
+    connection.end();
 })
 
 app.listen(3000)
